@@ -1,7 +1,10 @@
 # Clanker24
 > **Status:** ⚠️ EXPERIMENTAL BETA / UNRELEASED  
 > *Active testing repository for the upcoming clank24 integration on ATC 24.*
-
+---
+## contribute 🤝
+> To help please dm me @notpurplx on discord!
+> Help is much appreciated since im an idiot and dint know what im doing!
 ---
 
 ## 🚀 Overview
