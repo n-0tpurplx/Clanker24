@@ -12,21 +12,29 @@ body {
 }
 
 header {
-    background: #161b22;
-    border-bottom: 1px solid #30363d;
-    padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 1rem 2rem;
+    background: #161b22;
+    border-bottom: 1px solid #30363d;
 }
 
 .logo {
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: bold;
 }
 
 .stats {
     color: #58a6ff;
+}
+
+select {
+    background: #0d1117;
+    color: #e6edf3;
+    border: 1px solid #30363d;
+    padding: 6px;
+    border-radius: 6px;
 }
 
 .board {
@@ -44,10 +52,10 @@ header {
 }
 
 .column-header {
-    background: #21262d;
     padding: 0.8rem;
     text-align: center;
     font-weight: bold;
+    background: #21262d;
     border-bottom: 1px solid #30363d;
 }
 
@@ -55,35 +63,24 @@ header {
     padding: 0.8rem;
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 0.6rem;
 }
 
 .strip {
     background: #0d1117;
     border: 1px solid #30363d;
     border-left: 4px solid #58a6ff;
-    border-radius: 8px;
-    padding: 0.75rem;
+    padding: 0.6rem;
+    border-radius: 6px;
 }
 
 .callsign {
     font-weight: bold;
-    margin-bottom: 0.5rem;
+    margin-bottom: 4px;
 }
 
 .info {
+    font-size: 0.85rem;
     color: #8b949e;
-    font-size: 0.9rem;
-    line-height: 1.4;
-}
-
-footer {
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    background: #161b22;
-    border-top: 1px solid #30363d;
-    padding: 0.75rem;
-    text-align: center;
-    color: #58a6ff;
+    line-height: 1.3;
 }
