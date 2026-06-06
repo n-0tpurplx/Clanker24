@@ -1,69 +1,59 @@
-const aircraft = {
-    parked: [
-        {
-            callsign: "AAL123",
-            aircraft: "Boeing 737",
-            pilot: "PilotA",
-            altitude: "0 ft"
-        }
-    ],
+const API = "https://clanker24-be.onrender.com/aircraft";
 
-    taxiing: [
-        {
-            callsign: "DAL456",
-            aircraft: "Airbus A320",
-            pilot: "PilotB",
-            altitude: "GS 18 kt"
-        }
-    ],
+const airportSelect = document.getElementById("airportSelect");
+let airport = airportSelect.value;
 
-    departing: [
-        {
-            callsign: "SHAMROCK-1337",
-            aircraft: "Airbus A380",
-            pilot: "PTC_Helper",
-            altitude: "1450 ft"
-        }
-    ],
+airportSelect.addEventListener("change", () => {
+    airport = airportSelect.value;
+    load();
+});
 
-    enroute: [
-        {
-            callsign: "UAE001",
-            aircraft: "Boeing 777",
-            pilot: "PilotC",
-            altitude: "32000 ft"
-        },
-        {
-            callsign: "DLH500",
-            aircraft: "Airbus A350",
-            pilot: "PilotD",
-            altitude: "28000 ft"
-        }
-    ]
+const columns = {
+    PARKED: document.getElementById("PARKED"),
+    TAXIING: document.getElementById("TAXIING"),
+    DEPARTING: document.getElementById("DEPARTING"),
+    ENROUTE: document.getElementById("ENROUTE")
 };
 
-function createStrip(data) {
-    return `
-        <div class="strip">
-            <div class="callsign">${data.callsign}</div>
-            <div class="info">
-                ${data.aircraft}<br>
-                ${data.pilot}<br>
-                ${data.altitude}
-            </div>
+function strip(acft) {
+    const div = document.createElement("div");
+    div.className = "strip";
+
+    div.innerHTML = `
+        <div class="callsign">${acft.callsign}</div>
+        <div class="info">
+            ${acft.aircraft}<br>
+            ${acft.pilot}<br>
+            ${acft.altitude} ft<br>
+            ${acft.groundSpeed ?? acft.speed} kt
         </div>
     `;
+
+    return div;
 }
 
-function renderColumn(id, aircraftList) {
-    const column = document.getElementById(id);
+async function load() {
+    try {
+        const res = await fetch(`${API}?airport=${airport}`);
+        const data = await res.json();
 
-    aircraftList.forEach(acft => {
-        column.innerHTML += createStrip(acft);
-    });
+        document.querySelector(".stats").innerText =
+            `${data.count} Aircraft Online`;
+
+        // clear columns (IMPORTANT)
+        Object.values(columns).forEach(c => c.innerHTML = "");
+
+        // render strips
+        for (const acft of data.aircraft) {
+            if (columns[acft.strip]) {
+                columns[acft.strip].appendChild(strip(acft));
+            }
+        }
+
+    } catch (err) {
+        console.log("error:", err);
+    }
 }
 
-renderColumn("parked", aircraft.parked);
-renderColumn("taxiing", aircraft.taxiing);
-renderColumn("departing", aircraft.departing);
-renderColumn("enroute", aircraft.enroute);
+load();
+setInterval(load, 3000);
